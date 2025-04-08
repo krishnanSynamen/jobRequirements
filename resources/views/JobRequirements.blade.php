@@ -18,7 +18,7 @@
                 <div class="alert alert-danger alert-dismissible mt-1">
                     {{ session('success') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
+                </div> 
                 @endsession
                 @session('logout')
                     <div class="alert alert-danger alert-dismissible mt-1">
