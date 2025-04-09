@@ -42,10 +42,10 @@ class ApplicationFormController extends Controller
     public function applicationData()
     {
         try{
-
             $data = ApplicationDetails::getAplicationData();
             $statusCode = 301;
 
+            
             if (!empty($data)) {
                 $statusCode = 200;
             }
