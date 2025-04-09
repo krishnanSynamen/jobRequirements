@@ -22,6 +22,9 @@
             <h2><a class="btn btn-danger" href="logout">Logout</a></h2>
             <h2><a class="btn btn-primary" href="/jobFields">Add Job</a></h2>
         </div>
+        <div>
+            <h2><a class="btn btn-secondary" href="/">Jobs</a></h2>
+        </div>
         @if ($status_code == 301)
         <div>
             <h5>NO, USER IS APPLIED! <strong><a href="/">APPLY NOW</a></strong></h5>
