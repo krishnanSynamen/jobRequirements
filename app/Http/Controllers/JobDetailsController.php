@@ -13,7 +13,6 @@ class JobDetailsController extends Controller
     {
         $requestData = $request->validated();
         $requestData['status'] = 'A';
-        print_r($requestData);exit;
         ModelsJobDetails::storeJobDetails($requestData);
         return redirect('/applicationData')->with('success', 'Job Details Added Submitted Successfully');
     }

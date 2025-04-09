@@ -55,16 +55,6 @@
                         <div class="mt-2" style="color: red">{{ $message }}</div>
                     @enderror
                 </div>
-                <div>
-                    <label class="form-label" for="tags">Select Tags:</label>
-                    <select class="form-control" name="tags[]" id="tags" multiple="multiple" size="5">
-                        <option value="tag1">Tag 1</option>
-                        <option value="tag2">Tag 2</option>
-                        <option value="tag3">Tag 3</option>
-                        <option value="tag4">Tag 4</option>
-                        <option value="tag5">Tag 5</option>
-                    </select>            
-                </div>
                 <div class="form-group mt-2">
                     <label class="form-label" style="font-weight: bold" for="skills">Key Skills</label>
                     <input class="form-control" type="text" name="skills" id="skills" value="{{ old('skills')}}">
