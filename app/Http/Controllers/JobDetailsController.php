@@ -30,4 +30,11 @@ class JobDetailsController extends Controller
 
         return view('/ApplicationForm', ['selectedJob' => $selJobDetails]);
     }
+
+    public function removeSelectedJob($jobId)
+    {
+        $status = ModelsJobDetails::removeSelectedJob($jobId);
+
+        return redirect('/')->with('success', 'Job Details Removed Successfully');
+    }
 }

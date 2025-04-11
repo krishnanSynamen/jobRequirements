@@ -59,4 +59,5 @@ Route::get('/jobFields', function(){
 Route::prefix('jobDetails')->controller(JobDetailsController::class)->group(function(){
     Route::post('store', 'storeJobDetails');
     Route::get('selectedJob/{jobId}', 'getSelectedJob');
+    Route::get('removeJob/{jobId}', 'removeSelectedJob');
 });

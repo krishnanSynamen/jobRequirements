@@ -37,7 +37,12 @@
                     <div class="card-body">
                         <h3 class="card-title"> {{ $data['job_name'] }} </h3>
                         <p class="card-text"> {{ $data['job_des'] }} </p>
-                        <a class="btn btn-primary" href="/jobDetails/selectedJob/{{$data['job_details_id']}}">Job Details</a>
+                        <div>
+                            <a class="btn btn-primary" href="/jobDetails/selectedJob/{{$data['job_details_id']}}">Job Details</a>
+                            @if (Auth::check())
+                                <a class="btn btn-danger" href="/jobDetails/removeJob/{{$data['job_details_id']}}">Remove</a>
+                            @endif
+                        </div>
                     </div>
                 </div>
                 @endforeach

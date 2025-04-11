@@ -32,4 +32,9 @@ class JobDetails extends Model
                         // ->get()
                         ->First();
     }
+
+    public static function removeSelectedJob($jobId)
+    {
+        return self::where('job_details_id', $jobId)->delete();
+    }
 }
