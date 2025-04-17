@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class JobDetails extends FormRequest
+class TrackId extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,14 +22,7 @@ class JobDetails extends FormRequest
     public function rules(): array
     {
         return [
-            'job_name' => 'required',
-            'job_des' => 'required',
-            'job_requirements' => 'required',
-            'exp_from_cand' => 'required',
-            'skills' => 'required',
-            'tags' => 'required',
-            'qualification' => 'required',
-            'vacancy' => 'required'
+            'track_id' => 'required|min:6,max:6'
         ];
     }
 }

@@ -15,33 +15,21 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         @endsession
-        @php
-            // print_r($selectedJob);exit;
-        @endphp
+
         <div class="mt-3">
-            <h2 style="text-align: center">{{ $selectedJob['job_name'] }}</h2>
+            <h2 style="text-align: center">{{ $selectedJob['title'] }}</h2>
             <div class="mt-2">
                 <h5>JOB DESCRIPTION</h5>
                 <div class="data">
-                    {{ $selectedJob['job_des'] }}
-                </div>
-            </div>
-            <div class="mt-3">
-                <h5>IDEAL CANDIDATE REQUIREMENTS</h5>
-                <div class="data">
-                    {{ $selectedJob['job_requirements'] }}
-                </div>
-            </div>
-            <div class="mt-3">
-                <h5>EXPECTATIONS FROM THE CANDIDATE</h5>
-                <div class="data">
-                    {{ $selectedJob['exp_from_cand'] }}
+                    {{ $selectedJob['description'] }}
                 </div>
             </div>
             <div class="mt-3">
                 <h5>KEY SKILLS</h5>
                 <div class="data">
-                    {{ $selectedJob['skills'] }}
+                    @foreach ($selectedJob['skills'] as $item)
+                        {{ strtoupper($item->name) }},
+                    @endforeach
                 </div>
             </div>
             <div class="mt-3">
@@ -56,12 +44,18 @@
                     {{ $selectedJob['vacancy'] }}
                 </div>
             </div>
+            <div class="mt-3">
+                <h5>Type</h5>
+                <div class="data">
+                    {{ $selectedJob['type'] }}
+                </div>
+            </div>
         </div>
         <div class="mt-2">
             <h3 style="text-align: center">APPLICATION FORM</h3>
         </div>
         <div class="m-5 border border-5">
-            <form class="p-3" action="/store" method="POST" enctype="multipart/form-data">
+            <form class="p-3" action="/user/store" method="POST">
                 @csrf
                 <div class="form-group mt-2">
                     <label class="form-label" style="font-weight: bold" for="name">Name </label>
@@ -78,35 +72,28 @@
                     @enderror
                 </div>
                 <div class="form-group mt-2">
-                    <label class="form-label" style="font-weight: bold" for="mobile_no">Mobile No </label>
-                    <input class="form-control" type="text" name="mobile_no" id="mobile_no" value="{{ old('mobile_no')}}">
-                    @error('mobile_no')
-                        <div class="alert alert-danger mt-1">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="form-group mt-2">
                     <label class="form-label" style="font-weight: bold" for="position_applied">Position Applied</label>
-                    <input class="form-control" type="text" name="position_applied" id="position_applied" value="{{ old('position_applied', $selectedJob['job_name']) }}" readonly>
+                    <input class="form-control" type="text" name="position_applied" id="position_applied" value="{{ old('position_applied', $selectedJob['title']) }}" readonly>
                     @error('position_applied')
                         <div class="alert alert-danger mt-1">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="form-group mt-2">
-                    <label class="form-label" style="font-weight: bold" for="experience">Experience </label>
-                    <select class="form-control" name="experience" id="experience" value="{{old('experience')}}">
-                        <option value="">...select...</option>
-                        <option value="fresher" {{ old('experience') == 'fresher' ? 'selected' : ''}}>Fresher</option>
-                        <option value="experience" {{ old('experience') == 'experience' ? 'selected' : ''}}>Experience</option>
-                    </select>
-
-                    @error('experience')
+                    <label class="form-label" style="font-weight: bold" for="cover_letter">Cover Letter </label>
+                    <input class="form-control" type="text" name="cover_letter" id="cover_letter" value="{{ old('cover_letter')}}">
+                    @error('cover_letter')
                         <div class="alert alert-danger mt-1">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="form-group mt-2">
-                    <label class="form-label" style="font-weight: bold" for="designation">Current Designation</label>
-                    <input class="form-control" type="text" name="designation" id="designation" value="{{ old('designation')}}">
-                    @error('designation')
+                    <label class="form-label" style="font-weight: bold" for="type">Experience </label>
+                    <select class="form-control" name="type" id="type" value="{{old('type')}}">
+                        <option value="">...select...</option>
+                        <option value="Fresher" {{ old('type') == 'Fresher' ? 'selected' : ''}}>Fresher</option>
+                        <option value="Experience" {{ old('type') == 'Experience' ? 'selected' : ''}}>Experience</option>
+                    </select>
+
+                    @error('type')
                         <div class="alert alert-danger mt-1">{{ $message }}</div>
                     @enderror
                 </div>
@@ -126,36 +113,17 @@
                 </div>
                 <div class="form-group mt-2">
                     <label class="form-label" style="font-weight: bold" for="notice_period">Notice Period</label>
-                    <select class="form-control" name="notice_period" id="notice_period" value="{{old('notice_period')}}">
-                        <option value="">...select...</option>
-                        <option value="immediate">Immediate</option>
-                        <option value="15">15 Days</option>
-                        <option value="30">30 Days</option>
-                        <option value="45">45 Days</option>
-                        <option value="60">60 Days</option>
-                        <option value="75">More than 60 Days</option>
-                    </select>
+                    <input class="form-control" type="number" name="notice_period" id="notice_period" value="{{ old('notice_period')}}">
                     @error('notice_period')
                         <div class="alert alert-danger mt-1">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="form-group mt-2">
-                    <label class="form-label" style="font-weight: bold" for="resume">Attach Resume</label>
-                    <input class="form-control" type="file" name="resume" id="resume">
-                    @error('resume')
-                        <div class="alert alert-danger mt-1">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="form-group mt-2">
-                    <label class="form-label" style="font-weight: bold" for="cover_letter">Cover Letter</label>
-                    <input class="form-control" type="text" name="cover_letter" id="cover_letter" value="{{ old('cover_letter')}}">
-                    @error('cover_letter')
-                        <div class="alert alert-danger mt-1">{{ $message }}</div>
-                    @enderror
+                    <input type="hidden" name="job_id" , value="{{old('job_id', $selectedJob['id'])}}">
+                    <input type="hidden" name="user_id" , value="{{old('user_id', Auth::user()->id ?? '')}}">
                 </div>
                 <div class="form-group mt-2 mb-2">
                     <button class="btn btn-primary">Submit</button>
-                    <a class="btn btn-primary" href="/loginForm">Login</a>
                 </div>
             </form>
         </div>

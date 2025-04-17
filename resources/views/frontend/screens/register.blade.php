@@ -10,10 +10,10 @@
 <body>
     <div class="container">
         <div class="mt-2">
-            <h1 style="text-align: center">User Login</h1>
+            <h1 style="text-align: center">User Register</h1>
         </div>
         <div class="border border-5" style="margin-left: 350px;margin-right: 350px;margin-top: 50px">
-            <form class="p-3" action="/login" method="POST">
+            <form class="p-3" action="/user/register" method="POST">
                 @session('success')
                 <div class="alert alert-danger alert-dismissible mt-1">
                     {{ session('success') }}
@@ -27,6 +27,13 @@
                     </div>
                 @endsession
                 @csrf
+                <div class="form-group mt-2">
+                    <label class="form-label" style="font-weight: bold" for="name">Name </label>
+                    <input class="form-control" type="text" name="name" id="name" value="{{ old('name')}}">
+                    @error('name')
+                        <div class="mt-2" style="color: red">{{ $message }}</div>
+                    @enderror
+                </div>
                 <div class="form-group mt-2">
                     <label class="form-label" style="font-weight: bold" for="email">Email </label>
                     <input class="form-control" type="text" name="email" id="email" value="{{ old('email')}}">
