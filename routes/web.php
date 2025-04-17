@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\ApplicationFormController;
-use App\Http\Controllers\JobDetailsController;
+use App\Http\Controllers\AddJobController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
-use App\Models\JobDetails;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\UserMiddleware;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,44 +19,55 @@ use Illuminate\Support\Facades\Storage;
 */
 
 // Route::get('/', [JobDetailsController::class, 'getJobDetails']);
-Route::get('/', function(){
-    $jobDetails = JobDetails::jobJobDetails();
-    return view('/JobLists', ['jobData' => $jobDetails]);
-});
-
-
-// Route::get('/jobList', function () {
-//     return view('JobLists');
-// });
-
-// Route::get('/jobForm', function () {
-//     return view('ApplicationForm');
-// });
-
-Route::get('/loginForm', function () {
+Route::get('/loginForm', function(){
     return view('LoginForm');
 })->name('login');
 
-Route::controller(ApplicationFormController::class)->group(function(){
-    Route::post('store', 'storeData');
+Route::get('/', [AddJobController::class, 'getJob']);
+
+
+Route::prefix('user')->group(function() {
+
+    Route::middleware('guest')->group(function() {
+        Route::get('/registerForm', function(){
+            return view('/frontend/screens/register');
+        });
+        Route::get('/login', fn() => view('/frontend/screens/login'));
+    });
+
+    Route::post('/register', [LoginController::class, 'register']);
+    Route::post('/login', [LoginController::class, 'authenticate']);
+
+    Route::middleware(UserMiddleware::class)->group(function() {
+        Route::get('/selectedJob/{job}/job/{id}', [AddJobController::class, 'selectedJob']);
+        Route::post('/store', [AddJobController::class, 'storeJob']);
+        Route::get('/trackApplication/{id}', [AddJobController::class, 'trackStatus']);
+
+        Route::controller(LoginController::class)->group(function() {
+            Route::get('/logout', 'logout');
+        });
+    });
 });
 
-Route::middleware('auth')->controller(ApplicationFormController::class)->group(function(){
-    Route::get('applicationData', 'applicationData');
-    Route::get('downloadresume/{resume}', 'downloadResume');
-    Route::get('/status/{status}/user/{id}', 'statusUpdate');
-    Route::get('logout', 'logout');
-});
 
-Route::controller(LoginController::class)->group(function(){
-    Route::post('login', 'login');
-});
 
-Route::get('/jobFields', function(){
-    return view('JobRequirements');
-});
+Route::prefix('admin')->group(function () {
+    
+    Route::get('/', fn () => view('admin.Login'))->middleware('guest')->name('admin');
+    Route::post('login', [AdminController::class, 'login']);
 
-Route::prefix('jobDetails')->controller(JobDetailsController::class)->group(function(){
-    Route::post('store', 'storeJobDetails');
-    Route::get('selectedJob/{jobId}', 'getSelectedJob');
+    Route::middleware(AdminMiddleware::class)->group(function() {
+        Route::get('/addJobForm', fn() => view('/admin/screens/jobs/create'));
+
+        Route::controller(AddJobController::class)->group(function() {
+            Route::get('dashboard/{id?}', 'getJob');
+            Route::get('/appliedJobs', 'getAppliedJobs');
+            Route::get('/changeStatus/{id}', 'changeStatus');
+            Route::get('/showJob/{id}', 'showJob');
+            Route::get('/edit/{id}', 'edit');
+            Route::post('/addJob/{id?}', 'addJob');
+            Route::get('closeJob/{id}', 'closeJob');
+        });
+        Route::get('/logout', [LoginController::class, 'logout']);
+    });
 });
