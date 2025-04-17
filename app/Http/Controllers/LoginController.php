@@ -7,8 +7,6 @@ use App\Http\Requests\Register;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {

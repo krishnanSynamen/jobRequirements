@@ -10,9 +10,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         @endsession
-        @php
-            // print_r($job->isEmpty());exit;
-        @endphp
         @if ($job->isEmpty())
             <div>
                 <p>CURRENTLY, NO JOB IS FOUND!</p>
