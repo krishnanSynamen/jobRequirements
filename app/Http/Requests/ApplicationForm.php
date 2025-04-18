@@ -31,7 +31,7 @@ class ApplicationForm extends FormRequest
             'current_ctc' => 'required',
             'expected_ctc' => 'required',
             'notice_period' => 'required',
-            'resume' => 'required|mimes:pdf,jpeg|file',
+            'resume' => 'required|mimes:pdf|file',
             'cover_letter' => 'required'
         ];
     }

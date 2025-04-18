@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('skills', function (Blueprint $table) {
             $table->unsignedBigInteger('skills_id', true);
-            $table->unsignedBigInteger('job_details_id');
-            $table->string('skills');
+            $table->string('name');
         });
     }
 

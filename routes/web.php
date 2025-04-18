@@ -4,6 +4,7 @@ use App\Http\Controllers\ApplicationFormController;
 use App\Http\Controllers\JobDetailsController;
 use App\Http\Controllers\LoginController;
 use App\Models\JobDetails;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
@@ -23,7 +24,6 @@ Route::get('/', function(){
     $jobDetails = JobDetails::jobJobDetails();
     return view('/JobLists', ['jobData' => $jobDetails]);
 });
-
 
 // Route::get('/jobList', function () {
 //     return view('JobLists');

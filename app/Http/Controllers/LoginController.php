@@ -14,10 +14,8 @@ class LoginController extends Controller
 
         if (Auth::attempt($requestData)) {
             return redirect('/applicationData');
-            print_r(Auth::user());exit;
         }
 
         return back()->withErrors(['password' => 'Invalid User Name Or Password']);
-        print_r($requestData);
     }
 }

@@ -27,7 +27,6 @@ class JobDetails extends FormRequest
             'job_requirements' => 'required',
             'exp_from_cand' => 'required',
             'skills' => 'required',
-            'tags' => 'required',
             'qualification' => 'required',
             'vacancy' => 'required'
         ];
