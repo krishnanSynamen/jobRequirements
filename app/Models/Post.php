@@ -15,7 +15,7 @@ class Post extends Model
         'tags' =>'array'
     ];
 
-    public function getCategory() {
+    public function category() {
         return $this->belongsTo(Category::class, 'category_id');
     }
 }
