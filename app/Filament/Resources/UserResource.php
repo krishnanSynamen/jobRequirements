@@ -3,20 +3,19 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
+use App\Filament\Resources\UserResource\RelationManagers\PostsRelationManager;
 use App\Models\User;
-use Filament\Forms;
-use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Tabs;
+use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\Enums\IconPosition;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class UserResource extends Resource
 {
@@ -28,16 +27,27 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')->required()->maxLength(8),
-                TextInput::make('email')->required()->email()->prefix('€'),
-                TextInput::make('password')->required()->visibleOn('create'),
+                Tabs::make()->tabs([
+                    Tab::make('User Details')
+                        ->icon('heroicon-s-users')
+                        ->IconPosition(IconPosition::After)
+                        // ->badge('New User')
+                        ->schema([
+                            TextInput::make('name')->required()->maxLength(8),
+                            TextInput::make('email')->required()->email()->prefix('€'),
+                            TextInput::make('password')->required()->visibleOn('create'),
+                        ])->columnSpanFull(),
+                        Tab::make('Relation')->schema([
+                            Select::make('Posts')->multiple()->relationship('posts', 'title')
+                        ])
+                ])->activeTab(2)->persistTabInQueryString(),
                 // Select::make('Career')->options([
                 //     'PHP' => 'PHP',
                 //     'AWS' => 'AWS',
                 //     'JAVA' => 'JAVA',
                 // ])->required()
                 // DatePicker::make('date_of_birth')->required()->label('Date')->maxDate(now())
-            ]);
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table
@@ -74,7 +84,7 @@ class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            PostsRelationManager::class
         ];
     }
 

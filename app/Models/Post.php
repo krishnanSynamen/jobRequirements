@@ -18,4 +18,13 @@ class Post extends Model
     public function category() {
         return $this->belongsTo(Category::class, 'category_id');
     }
+
+    public function users() {
+        return $this->belongsToMany(User::class, 'post_user');
+    }
+
+
+    public function image() {
+        return $this->morphMany(Image::class, 'image');
+    }
 }

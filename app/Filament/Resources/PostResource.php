@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\PostResource\Pages;
 use App\Filament\Resources\PostResource\RelationManagers;
 use App\Filament\Resources\PostResource\RelationManagers\CategoryRelationManager;
+use App\Filament\Resources\PostResource\RelationManagers\UsersRelationManager;
 use App\Models\Category;
 use App\Models\Post;
 use Filament\Actions\DeleteAction;
@@ -25,6 +26,9 @@ use Filament\Tables\Columns\CheckboxColumn;
 use Filament\Tables\Columns\ColorColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 
 class PostResource extends Resource
@@ -33,11 +37,11 @@ class PostResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $modelLabel = 'Post Category';
+    protected static ?string $modelLabel = 'Post';
     
     public static function form(Form $form): Form
     {
-        return $form
+        return $form    
             ->schema([
                 Section::make('Create')
                 ->description('We Can Create New Post')
@@ -71,6 +75,10 @@ class PostResource extends Resource
                         FileUpload::make('thumbnail')->required()->disk('public')
                                 ->directory('thumbnail'),
                         Checkbox::make('published')->required(),
+                    ]),
+                    Section::make('Authors')->collapsible()
+                    ->schema([
+                        Select::make('users')->multiple()->relationship('users', 'name'),
                     ])
                 ])
             ])->columns(3);
@@ -91,7 +99,11 @@ class PostResource extends Resource
                 TextColumn::make('created_at')->date()->label('Posted On')->toggleable()
             ])
             ->filters([
-                //
+                Filter::make('Published Posts')->query(function ($query) {
+                    $query->where('published', true);
+                }),
+                SelectFilter::make('category_id')->relationship('category', 'name')->multiple()->searchable()->preload(),
+                TernaryFilter::make('published')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -109,7 +121,8 @@ class PostResource extends Resource
     public static function getRelations(): array
     {
         return [
-            CategoryRelationManager::class
+            CategoryRelationManager::class,
+            UsersRelationManager::class
         ];
     }
 

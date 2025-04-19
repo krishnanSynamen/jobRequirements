@@ -3,7 +3,10 @@
 use App\Http\Controllers\ApplicationFormController;
 use App\Http\Controllers\JobDetailsController;
 use App\Http\Controllers\LoginController;
+use App\Models\Image;
 use App\Models\JobDetails;
+use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -21,8 +24,10 @@ use Illuminate\Support\Facades\Storage;
 
 // Route::get('/', [JobDetailsController::class, 'getJobDetails']);
 Route::get('/', function(){
-    $jobDetails = JobDetails::jobJobDetails();
-    return view('/JobLists', ['jobData' => $jobDetails]);
+    // $jobDetails = JobDetails::jobJobDetails();
+    // return view('/JobLists', ['jobData' => $jobDetails]);
+    $user = Image::find(2);
+    print_r($user->image->toArray());
 });
 
 // Route::get('/jobList', function () {
