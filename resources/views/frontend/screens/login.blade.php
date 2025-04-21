@@ -14,7 +14,7 @@
 <body>
     <div class="container">
         <div class="mt-2">
-            <h1 style="text-align: center">User Login</h1>
+            <h1 style="text-align: center">{{ __('login.user_login') }}</h1>
         </div>
         <div class="border border-5" style="margin-left: 350px;margin-right: 350px;margin-top: 50px">
             <form class="p-3" action="/user/login" method="POST">
@@ -32,22 +32,22 @@
                 @endsession
                 @csrf
                 <div class="form-group mt-2">
-                    <label class="form-label" style="font-weight: bold" for="email">Email </label>
+                    <label class="form-label" style="font-weight: bold" for="email">{{ __('login.email') }} </label>
                     <input class="form-control" type="text" name="email" id="email" value="{{ old('email')}}">
                     @error('email')
                         <div class="mt-2" style="color: red">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="form-group mt-2">
-                    <label class="form-label" style="font-weight: bold" for="password">Password</label>
+                    <label class="form-label" style="font-weight: bold" for="password">{{ __('login.password') }}</label>
                     <input class="form-control" type="password" name="password" id="password" value="{{ old('password')}}">
                     @error('password')
                         <div class="mt-2" style="color: red">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="form-group mt-2 mb-2 d-flex justify-content-between">
-                    <button class="btn btn-success">Submit</button>
-                    <a class="btn btn-primary" href="/user/registerForm">Register</a>
+                    <button class="btn btn-success">{{ __('login.login') }}</button>
+                    <a class="btn btn-primary" href="/user/registerForm">{{ __('login.register') }}</a>
                 </div>
             </form>
         </div>

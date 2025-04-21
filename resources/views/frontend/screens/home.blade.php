@@ -2,7 +2,7 @@
 @section('title', 'Home Page');
 
 @section('content')
-    <h1 class="text-center">JOB DETAILS</h1>
+    <h1 class="text-center">{{ __('home.job_details') }}</h1>
     <div class="m-5">
         @session('success')
             <div class="alert alert-danger alert-dismissible mt-1">
@@ -22,7 +22,7 @@
                         <h3 class="card-title"> {{ strtoupper($item['title']) }} </h3>
                         <p class="card-text"> {{ $item['description'] }} </p>
                         <div class="d-flex justify-content-end">
-                            <a href="/user/selectedJob/{{ $item['slug']}}/job/{{$item['id'] }}" class="btn btn-primary">Apply Now</a>
+                            <a href="/user/selectedJob/{{ $item['slug']}}/job/{{$item['id'] }}" class="btn btn-primary">{{ __('home.apply_now') }}</a>
                         </div>
                     </div>
                 </div>

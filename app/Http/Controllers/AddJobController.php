@@ -8,11 +8,20 @@ use App\Http\Requests\TrackId;
 use App\Models\CareerApplication;
 use App\Models\CareerJobs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class AddJobController extends Controller
 {
+    public function changeLanguage(string $locale) {
+        App::setLocale($locale);
+        Log::info('Current locale: ' . App::getLocale());
+        session(['locale' => $locale]);
+        return redirect()->back();
+    }
+
     public function addJob(AddJob $request, $id = '') {
         $requestData = $request->validated();
         $requestData['is_active'] = 1;
@@ -30,6 +39,8 @@ class AddJobController extends Controller
     }
 
     public function getJob() {
+        Log::info('Current locale in get Job');
+        Log::info('Current locale: ' . Session::get('locale', 'en'));
         $getJob = CareerJobs::where('is_active', 1)
                                 ->orderBy('id', 'desc')->paginate(5);
 

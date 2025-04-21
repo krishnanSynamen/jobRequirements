@@ -22,21 +22,31 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/') }}">Home</a>
+                        <a class="nav-link" href="{{ url('/') }}">{{ __('home.home') }}</a>
                     </li>
                     @auth
                         <li class="nav-item active">
-                            <a class="nav-link" href="/user/trackApplication/{{Auth::user()->id}}">Track Applications</a>
+                            <a class="nav-link" href="/user/trackApplication/{{Auth::user()->id}}">{{ __('home.track_application') }}</a>
                         </li>
                     @endauth
                 </ul>
+                <div class="dropdown">
+                    <button type="button" class="btn btn-secondary m-2 dropdown-toggle" data-bs-toggle="dropdown">{{ __('home.language') }}</button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/language/tn">Tamil</a></li>
+                        <li><a class="dropdown-item" href="/language/en">English</a></li>
+                        <li><a class="dropdown-item" href="/language/tel">Telugu</a></li>
+                    </ul>
+                </div>
                 @auth
                     <div class="d-flex">
-                        <a class="btn btn-danger p-1" href="/user/logout">Logout</a>
+                        <a class="btn btn-danger p-1" href="/user/logout">{{ __('home.logout') }}</a>
                     </div>
                 @else
                     <div class="d-flex">
-                        <a class="btn btn-primary " href="/user/login">Login</a>
+                        <div>
+                            <a class="btn btn-primary " href="/user/login">{{ __('login.login')}}</a>
+                        </div>                     
                     </div>
                 @endauth
             </div>
