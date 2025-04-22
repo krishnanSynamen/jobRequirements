@@ -1,0 +1,26 @@
+<?php
+namespace App\Filament\Pages;
+
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
+use Filament\Forms\Form;
+use Filament\Pages\Dashboard as PagesDashboard;
+use Filament\Pages\Dashboard\Concerns\HasFiltersForm;
+
+class Dashboard extends PagesDashboard {
+    use HasFiltersForm;
+
+    public function filtersForm(Form $form): Form
+    {
+        return $form->schema([
+            Section::make('Flters')->schema([
+                TextInput::make('name'),
+                DatePicker::make('startDate'),
+                DatePicker::make('endDate'),
+                Toggle::make('active')
+            ])->collapsible()->columns(3)
+        ]);
+    }
+}

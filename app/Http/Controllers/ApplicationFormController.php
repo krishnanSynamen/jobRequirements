@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersExport;
 use App\Http\Requests\ApplicationForm;
+use App\Imports\UsersImport;
 use App\Library\Common;
 use App\Models\ApplicationDetails;
 use Exception;
@@ -10,9 +12,23 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ApplicationFormController extends Controller
 {
+    public function export()
+    {
+        return Excel::download(new UsersExport, 'users.xlsx');
+    }
+
+    public function import(Request $request)
+    {
+        // print_r($request->file('file'));exit;
+        Excel::import(new UsersImport, $request->file('file'));
+        return redirect('/')->with('success', 'Excel Imported Successfully');
+
+    }
+
     public function storeData(ApplicationForm $request)
     {
         try{
