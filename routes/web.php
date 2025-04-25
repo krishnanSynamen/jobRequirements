@@ -44,7 +44,6 @@ Route::get('/loginForm', function () {
     return view('LoginForm');
 })->name('login');
 
-
 Route::controller(ApplicationFormController::class)->group(function(){
     Route::post('store', 'storeData');
     Route::get('export', 'export');
