@@ -28,7 +28,7 @@ Route::get('/', function(){
     // return view('/JobLists', ['jobData' => $jobDetails]);
     // $user = Image::find(2);
     // print_r($user->image->toArray());
-    return redirect('/krishnan');
+    return redirect('/welcome');
     return view('Import');
 });
 
@@ -43,6 +43,7 @@ Route::get('/', function(){
 Route::get('/loginForm', function () {
     return view('LoginForm');
 })->name('login');
+
 
 Route::controller(ApplicationFormController::class)->group(function(){
     Route::post('store', 'storeData');
