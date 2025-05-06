@@ -63,7 +63,7 @@ class PostResource extends Resource
                             ->reorderable()
                             ->tagSuffix('&')
                             ->splitKeys(['Tab', ' ']),
-                ])->columnSpan(2)->columns(2),
+                ])->columnSpan(3)->columns(2),
 
                 Group::make()->schema([
                     Section::make('File Upload')
@@ -80,10 +80,10 @@ class PostResource extends Resource
                     ]),
                     Section::make('Authors')->collapsible()
                     ->schema([
-                        Select::make('users')->multiple()->relationship('users', 'name'),
+                        Select::make('users')->multiple()->relationship('users', 'name')->preload(),
                     ])
-                ])
-            ])->columns(3);
+                ])->columnSpan(2)
+            ])->columns(5);
     }
 
     public static function table(Table $table): Table

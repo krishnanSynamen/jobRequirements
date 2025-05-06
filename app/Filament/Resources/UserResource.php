@@ -42,9 +42,9 @@ class UserResource extends Resource
                             TextInput::make('email')->required()->email()->prefix('€'),
                             TextInput::make('password')->required()->visibleOn('create'),
                         ])->columnSpanFull(),
-                        Tab::make('Relation')->schema([
-                            Select::make('Posts')->multiple()->relationship('posts', 'title')
-                        ])
+                    Tab::make('Relation')->schema([
+                        Select::make('Posts')->multiple()->relationship('posts', 'title')->preload()
+                    ])
                 ])->activeTab(2)->persistTabInQueryString(),
                 // Select::make('Career')->options([
                 //     'PHP' => 'PHP',
@@ -82,9 +82,6 @@ class UserResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-            ])
-            ->headerActions([
-                ExportAction::make()->exporter(UserExporter::class)
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

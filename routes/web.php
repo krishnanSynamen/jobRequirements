@@ -22,17 +22,17 @@ use Illuminate\Support\Facades\Storage;
 |
 */
 
-// Route::get('/', [JobDetailsController::class, 'getJobDetails']);
-Route::get('/', function(){
-    // $jobDetails = JobDetails::jobJobDetails();
-    // return view('/JobLists', ['jobData' => $jobDetails]);
-    // $user = Image::find(2);
-    // print_r($user->image->toArray());
-    return redirect('/welcome');
-    return view('Import');
-});
+Route::get('/', [JobDetailsController::class, 'getJobDetails']);
+// Route::get('/', function(){
+//     // $jobDetails = JobDetails::jobJobDetails();
+//     // return view('/JobLists', ['jobData' => $jobDetails]);
+//     // $user = Image::find(2);
+//     // print_r($user->image->toArray());
+//     // return redirect('/welcome');
+//     return view('Import');
+// });
 
-// Route::get('/jobList', function () {
+// Route::get('/download', function () {
 //     return view('JobLists');
 // });
 
@@ -47,6 +47,7 @@ Route::get('/loginForm', function () {
 Route::controller(ApplicationFormController::class)->group(function(){
     Route::post('store', 'storeData');
     Route::get('export', 'export');
+    Route::get('download', 'download');
     Route::post('import', 'import');
 });
 
