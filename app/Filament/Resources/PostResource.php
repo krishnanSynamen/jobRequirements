@@ -15,10 +15,12 @@ use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\MarkdownEditor;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Wizard;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -82,7 +84,7 @@ class PostResource extends Resource
                     ->schema([
                         Select::make('users')->multiple()->relationship('users', 'name')->preload(),
                     ])
-                ])->columnSpan(2)
+                ])->columnSpan(2),
             ])->columns(5);
     }
 

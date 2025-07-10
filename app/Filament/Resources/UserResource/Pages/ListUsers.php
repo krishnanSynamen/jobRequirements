@@ -17,6 +17,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ListUsers extends ListRecords
 {
+    
     protected static string $resource = UserResource::class;
 
     protected function getHeaderActions(): array

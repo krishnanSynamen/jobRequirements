@@ -96,9 +96,12 @@ class ApplicationFormController extends Controller
             $data = ApplicationDetails::updateAplicationData($id, ['status' => $status]);
             return redirect('/applicationData')->with('success', 'Deleted SuccessFully');
 
-            print_r($status);exit;
         }catch(Exception $e) {
             return Common::commonException($e);
         }
+    }
+
+    public static function barcodeGenerator($data) {
+        dd($data);
     }
 }

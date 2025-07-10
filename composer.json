@@ -9,10 +9,12 @@
         "filament/filament": "^3.3",
         "flowframe/laravel-trend": "^0.4.0",
         "guzzlehttp/guzzle": "^7.2",
+        "jibaymcs/filament-tour": "^3.0",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "maatwebsite/excel": "^3.1.57",
+        "picqer/php-barcode-generator": "^3.2",
         "spatie/browsershot": "^5.0",
         "spatie/laravel-pdf": "^1.5"
     },

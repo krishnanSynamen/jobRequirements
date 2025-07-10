@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Exports\UserExporter;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers\PostsRelationManager;
+use App\Http\Controllers\ApplicationFormController;
 use App\Models\User;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Tabs;
@@ -19,6 +20,10 @@ use Filament\Tables\Actions\ExportBulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Log;
+use Picqer\Barcode\Types\TypeCode128;
+use Picqer\Barcode\Types\TypeCode128A;
+use Picqer\Barcode\Types\TypeCode39;
 
 class UserResource extends Resource
 {
